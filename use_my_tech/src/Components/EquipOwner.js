@@ -3,10 +3,11 @@ import axios from 'axios';
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
-  equipmentName: '',
+  name: '',
+  renting: false,
   price: '',
   rentalTime: '',
-  description: '',
+  details: '',
   // equipmentImage: '',
 };
 
