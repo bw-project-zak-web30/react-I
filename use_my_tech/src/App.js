@@ -1,12 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import RentalPage from './Components/RentalPage';
 import Login from './Components/Login';
 import SignUp from './Components/Signup';
 import Footer from './Components/Footer';
+
 import './App.css';
+import Login from './Components/Login';
+import PrivateRoute from './Components/PrivateRoute';
+
+import Navbar from './Components/Navbar';
 
 function App() {
   return (
