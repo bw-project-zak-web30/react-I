@@ -7,7 +7,8 @@ const Signup = () =>{
         name:'',
         userName:'',
         password:'',
-        email:''
+        city:'',
+        id:''
     })
 
     
@@ -44,12 +45,12 @@ const Signup = () =>{
           required
         />
         <input
-          label="Email"
-          id="email"
-          name="email"
-          placeholder="email"
+          label="City"
+          id="city"
+          name="city"
+          placeholder="Users City"
           onChange={handleChange}
-          value={signState.email}
+          value={signState.city}
           required
         />
         <input
