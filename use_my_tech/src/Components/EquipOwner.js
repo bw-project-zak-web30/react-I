@@ -30,14 +30,14 @@ function EquipOwner() {
 
   const handleAddSubmit = ev => {
     ev.preventDefault();
-    // axios
-    //   .post('', equipmentValues)
-    //   .then(res => {
-    //     console.log('Added Equipment to backend', res);
-    //   })
-    //   .catch(err => {
-    //     console.log('Add Equipment Error', err);
-    //   });
+    axios
+      .post('', equipmentValues)
+      .then(res => {
+        console.log('Added Equipment to backend', res);
+      })
+      .catch(err => {
+        console.log('Add Equipment Error', err);
+      });
   };
 
   return (
