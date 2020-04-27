@@ -1,6 +1,27 @@
 import React, {useState} from 'react';
 
-export const Login = () =>{
+const Login = () =>{
+
+    const [loginState, setLoginState] = useState({
+      username:'',
+      password:''
+    });
+
+    const handleChange = ev =>{
+        setLoginState({
+          ...loginState,
+          [ev.target.name]:ev.target.value
+        })
+      }
+
+      const loginSubmit = ev =>{
+        ev.preventDefault();
+    
+        axios.post('', loginState)
+        .then(res =>{console.log("Login Fetch: ",res);
+        })
+        .catch(err => console.log("Login ERROR: ",err))
+      }
 
     return(
         <form onSubmit={loginSubmit}>
@@ -27,3 +48,5 @@ export const Login = () =>{
       </form>
     )
 }
+
+export default Login;
