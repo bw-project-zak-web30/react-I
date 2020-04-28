@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
   name: '',
-  renting: false,
+  renting: {},
   price: '',
   rentalTime: '',
   details: '',
@@ -21,6 +22,20 @@ function EquipOwner() {
 
   //-------------BACKEND CALL--------------
 
+  const getEquipList = () =>{
+    AxiosWithAuth().get(`/api/users/${id}`)
+    .then(res =>{
+      console.log(res);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
+
+    useEffect(() => {
+      getEquipList();
+    }, [])
+
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
     setEquipmentValues({
@@ -31,14 +46,21 @@ function EquipOwner() {
 
   const handleAddSubmit = ev => {
     ev.preventDefault();
-    axios
-      .post('', equipmentValues)
+    AxiosWithAuth()
+      .post(`/api/users/${id}`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
       })
       .catch(err => {
         console.log('Add Equipment Error', err);
       });
+  };
+
+  const onCheckboxChange = ev => {
+    setEquipmentValues({
+      ...equipmentValues,
+      [ev.target.name]: ev.target.checked,
+    });
   };
 
   return (
@@ -63,6 +85,17 @@ function EquipOwner() {
             placeholder='Price'
           />
         </label>
+
+        <label>
+          <input
+            checked={equipmentValues.renting}
+            onChange={onCheckboxChange}
+            name='renting'
+            type='checkbox'
+          />{' '}
+          Renting
+        </label>
+
         <label htmlFor='rentalTime'>
           <input
             name='rentalTime'
