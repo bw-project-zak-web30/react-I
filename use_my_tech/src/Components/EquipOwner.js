@@ -50,10 +50,22 @@ function EquipOwner() {
       .post(`/api/users/${id}`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
+        getEquipList();
       })
       .catch(err => {
         console.log('Add Equipment Error', err);
       });
+  };
+
+  const deleteTech = itemID =>{
+    AxiosWithAuth().delete(`/api/users/${id}/rentals/equipment${itemID}`)
+    .then(res => {
+      console.log(res);
+      getEquipList();
+    })
+    .catch(err =>{
+      console.log(err);
+    })
   };
 
   const onCheckboxChange = ev => {
