@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
+
 
 //-------MATERIAL UI IMPORTS---------
 import Avatar from '@material-ui/core/Avatar';
@@ -114,7 +116,9 @@ const Signup = () => {
             name='username'
             placeholder='username'
             onChange={handleChange}
+
             value={signState.username}
+
             required
             fullWidth
             variant='outlined'
@@ -133,7 +137,9 @@ const Signup = () => {
             variant='outlined'
             margin='normal'
           />
+
           <Button type="submit" fullWidth variant='contained' className={classes.submit}>
+
             Sign Up
           </Button>
         </form>
