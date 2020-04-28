@@ -3,6 +3,7 @@ import RentalCard from './RentalCard';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
 function RentalPage() {
+
   //--------------------State--------------------
   const [rentals, setRentals] = useState([]);
 
@@ -18,6 +19,7 @@ function RentalPage() {
         console.log('Could not grab the equipments', err);
       });
   }, []);
+
 
   return (
     <div>

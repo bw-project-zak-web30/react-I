@@ -14,7 +14,11 @@ const equipmentInitialValues = {
 };
 
 function EquipOwner() {
-  const { id } = useParams();
+  const userId = localStorage.getItem('userId');
+
+  console.log(userId);
+  const {id} = useParams();
+
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -23,19 +27,20 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
-  const getEquipList = () => {
-    AxiosWithAuth()
-      .get(`/api/users/${id}`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    getEquipList();
-  }, []);
+
+  const getEquipList = () =>{
+    AxiosWithAuth().get(`/api/users/${userId}`)
+    .then(res =>{
+      console.log(res);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
+
+    useEffect(() => {
+      getEquipList();
+    }, [])
 
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
@@ -48,7 +53,7 @@ function EquipOwner() {
   const handleAddSubmit = ev => {
     ev.preventDefault();
     AxiosWithAuth()
-      .post(`/api/users/${id}`, equipmentValues)
+      .post(`/api/users/${userId}`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
         getEquipList();
@@ -58,23 +63,23 @@ function EquipOwner() {
       });
   };
 
+  const deleteTech = itemID =>{
+    AxiosWithAuth().delete(`/api/users/${userId}/rentals/equipment${itemID}`)
+    .then(res => {
+      console.log(res);
+      getEquipList();
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  };
+
+
   const onCheckboxChange = ev => {
     setEquipmentValues({
       ...equipmentValues,
       [ev.target.name]: ev.target.checked,
     });
-  };
-
-  const deleteTech = itemID => {
-    AxiosWithAuth()
-      .delete(`/api/users/${id}/rentals/equipment${itemID}`)
-      .then(res => {
-        console.log(res);
-        getEquipList();
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
   return (
     <div>
