@@ -15,7 +15,9 @@ const equipmentInitialValues = {
 };
 
 function EquipOwner() {
+  const userId = localStorage.getItem('userId');
 
+  console.log(userId);
   const {id} = useParams();
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
@@ -26,7 +28,7 @@ function EquipOwner() {
 
   //-------------BACKEND CALL--------------
   const getEquipList = () =>{
-    AxiosWithAuth().get(`/api/users/${id}`)
+    AxiosWithAuth().get(`/api/users/${userId}`)
     .then(res =>{
       console.log(res);
     })
@@ -50,7 +52,7 @@ function EquipOwner() {
   const handleAddSubmit = ev => {
     ev.preventDefault();
     AxiosWithAuth()
-      .post(`/api/users/${id}`, equipmentValues)
+      .post(`/api/users/${userId}`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
         getEquipList();
@@ -62,7 +64,7 @@ function EquipOwner() {
 
 
   const deleteTech = itemID =>{
-    AxiosWithAuth().delete(`/api/users/${id}/rentals/equipment${itemID}`)
+    AxiosWithAuth().delete(`/api/users/${userId}/rentals/equipment${itemID}`)
     .then(res => {
       console.log(res);
       getEquipList();
