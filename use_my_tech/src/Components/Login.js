@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 const Login = () => {
   const [loginState, setLoginState] = useState({
@@ -26,6 +27,7 @@ const Login = () => {
   };
 
   return (
+    <div>
     <form onSubmit={loginSubmit}>
       <label htmlFor='username'>
         <input
@@ -50,6 +52,10 @@ const Login = () => {
       </label>
       <button>Login</button>
     </form>
+    <div>
+      <p>Don't have an account? </p><Link to="/register">Sign-Up Here!</Link>
+    </div>
+</div>
   );
 };
 

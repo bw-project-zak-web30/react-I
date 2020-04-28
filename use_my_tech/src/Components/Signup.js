@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+
 
 const Signup = () =>{
     const [signState, setSignState] = useState({
@@ -27,6 +29,7 @@ const Signup = () =>{
     }
 
     return(
+      <div>
         <form onSubmit={signUpSubmit}>
             <select id="userType" name ="userType"
             onChange={handleChange}
@@ -74,6 +77,10 @@ const Signup = () =>{
         />
         <button>Sign Up</button>
         </form>
+        <div>
+          <p>Already have an account? </p><Link to="/login">Go ahead and Login here!</Link>
+        </div>
+      </div>
     )
 }
 
