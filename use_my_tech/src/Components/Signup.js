@@ -4,7 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
-
 //-------MATERIAL UI IMPORTS---------
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -46,7 +45,7 @@ const Signup = () => {
     username: '',
     password: '',
     name: '',
-    city: ''
+    city: '',
   });
 
   const handleChange = ev => {
@@ -114,12 +113,10 @@ const Signup = () => {
           <TextField
             label='Username'
             id='username'
-            name='username'
+            name='userName'
             placeholder='username'
             onChange={handleChange}
-
             value={signState.username}
-
             required
             fullWidth
             variant='outlined'
@@ -138,9 +135,12 @@ const Signup = () => {
             variant='outlined'
             margin='normal'
           />
-
-          <Button type="submit" fullWidth variant='contained' className={classes.submit}>
-
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            className={classes.submit}
+          >
             Sign Up
           </Button>
         </form>

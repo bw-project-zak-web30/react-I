@@ -3,10 +3,11 @@ import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import {useParams, useHistory} from 'react-router-dom';
 
+
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
   name: '',
-  renting: {},
+  renting: false,
   price: '',
   rentalTime: '',
   details: '',
@@ -24,6 +25,19 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
+  const getEquipList = () => {
+    AxiosWithAuth()
+      .get(`/api/users/${id}`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getEquipList();
+  }, []);
 
   const getEquipList = () =>{
     AxiosWithAuth().get(`/api/users/${id}`)
@@ -80,6 +94,17 @@ function EquipOwner() {
     });
   };
 
+  const deleteTech = itemID => {
+    AxiosWithAuth()
+      .delete(`/api/users/${id}/rentals/equipment${itemID}`)
+      .then(res => {
+        console.log(res);
+        getEquipList();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       {/* Add a new Equipment */}
