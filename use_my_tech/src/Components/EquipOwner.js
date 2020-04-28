@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import {useParams, useHistory} from 'react-router-dom';
+
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
@@ -13,6 +15,8 @@ const equipmentInitialValues = {
 };
 
 function EquipOwner() {
+
+  const {id} = useParams();
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -35,6 +39,20 @@ function EquipOwner() {
     getEquipList();
   }, []);
 
+  const getEquipList = () =>{
+    AxiosWithAuth().get(`/api/users/${id}`)
+    .then(res =>{
+      console.log(res);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
+
+    useEffect(() => {
+      getEquipList();
+    }, [])
+
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
     setEquipmentValues({
@@ -55,6 +73,19 @@ function EquipOwner() {
         console.log('Add Equipment Error', err);
       });
   };
+
+
+  const deleteTech = itemID =>{
+    AxiosWithAuth().delete(`/api/users/${id}/rentals/equipment${itemID}`)
+    .then(res => {
+      console.log(res);
+      getEquipList();
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  };
+
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
