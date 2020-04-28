@@ -48,7 +48,7 @@ const Signup = () => {
   });
 
   const handleChange = ev => {
-    ev.preventDefault();
+    // ev.preventDefault();
 
     setSignState({
       ...signState,
@@ -101,7 +101,7 @@ const Signup = () => {
           <TextField
             label='Username'
             id='username'
-            name='username'
+            name='userName'
             placeholder='username'
             onChange={handleChange}
             value={signState.userName}
@@ -123,7 +123,12 @@ const Signup = () => {
             variant='outlined'
             margin='normal'
           />
-          <Button fullWidth variant='contained' className={classes.submit}>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            className={classes.submit}
+          >
             Sign Up
           </Button>
         </form>

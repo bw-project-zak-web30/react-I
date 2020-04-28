@@ -4,7 +4,7 @@ import axios from 'axios';
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
   name: '',
-  renting: {},
+  renting: false,
   price: '',
   rentalTime: '',
   details: '',
