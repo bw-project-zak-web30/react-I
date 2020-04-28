@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function NavLinks() {
   return (
     <Fragment>
-      <Link to='/'>Home</Link>
+      <a href='https://usemytechstuff2.netlify.app/'>Home</a>
       <Link to='/rentals'>Rental</Link>
       <Link to='/login'>Login</Link>
       <Link to='/register'>Sign Up</Link>
