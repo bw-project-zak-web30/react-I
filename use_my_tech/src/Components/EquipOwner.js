@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
-import {useParams, useHistory} from 'react-router-dom';
-
+import { useParams, useHistory } from 'react-router-dom';
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
@@ -19,6 +18,7 @@ function EquipOwner() {
 
   console.log(userId);
   const {id} = useParams();
+
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -27,6 +27,7 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
+
   const getEquipList = () =>{
     AxiosWithAuth().get(`/api/users/${userId}`)
     .then(res =>{
@@ -61,7 +62,6 @@ function EquipOwner() {
         console.log('Add Equipment Error', err);
       });
   };
-
 
   const deleteTech = itemID =>{
     AxiosWithAuth().delete(`/api/users/${userId}/rentals/equipment${itemID}`)
