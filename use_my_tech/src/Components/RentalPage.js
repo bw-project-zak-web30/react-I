@@ -3,6 +3,7 @@ import RentalCard from './RentalCard';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
 function RentalPage() {
+
   //--------------------State--------------------
   const [rentals, setRentals] = useState([]);
 
@@ -24,6 +25,7 @@ function RentalPage() {
     //In here will be a axios PUT to make the the current equipment to become rented
     console.log('I haven been clicked', evt);
   };
+
 
   return (
     <div>
