@@ -7,10 +7,7 @@ function Navbar() {
   return (
     <nav>
       <div className='nav-logo'>
-        <img
-          src='/img/background-material-design-for-smart-tech-logo-png_87835.jpg'
-          alt=''
-        />
+        <img src='/img/background-material-design-for-smart-tech-logo-png_87835.jpg' />
       </div>
       <div className='nav-links'>
         <NavLinks />
@@ -20,6 +17,4 @@ function Navbar() {
   );
 }
 
-
 export default Navbar;
-

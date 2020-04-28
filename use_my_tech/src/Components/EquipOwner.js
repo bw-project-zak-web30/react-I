@@ -57,6 +57,7 @@ function EquipOwner() {
       });
   };
 
+
   const deleteTech = itemID =>{
     AxiosWithAuth().delete(`/api/users/${id}/rentals/equipment${itemID}`)
     .then(res => {
@@ -67,6 +68,7 @@ function EquipOwner() {
       console.log(err);
     })
   };
+
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
