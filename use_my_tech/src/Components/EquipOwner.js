@@ -4,7 +4,7 @@ import axios from 'axios';
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
   name: '',
-  renting: false,
+  renting: {},
   price: '',
   rentalTime: '',
   details: '',
@@ -41,6 +41,13 @@ function EquipOwner() {
       });
   };
 
+  const onCheckboxChange = ev => {
+    setEquipmentValues({
+      ...equipmentValues,
+      [ev.target.name]: ev.target.checked,
+    });
+  };
+
   return (
     <div>
       {/* Add a new Equipment */}
@@ -63,6 +70,17 @@ function EquipOwner() {
             placeholder='Price'
           />
         </label>
+
+        <label>
+          <input
+            checked={equipmentValues.renting}
+            onChange={onCheckboxChange}
+            name='renting'
+            type='checkbox'
+          />{' '}
+          Renting
+        </label>
+
         <label htmlFor='rentalTime'>
           <input
             name='rentalTime'
