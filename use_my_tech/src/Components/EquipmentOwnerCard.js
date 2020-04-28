@@ -12,4 +12,4 @@ function EquipmentOwnerCard({ product, remove, id }) {
   );
 }
 
-export default EquipmentCard;
+export default EquipmentOwnerCard;
