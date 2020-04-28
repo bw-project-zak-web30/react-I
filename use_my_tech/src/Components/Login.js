@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import {useLocalStorage} from '../hooks/useLocalStorage';
 
 
 import '../styles/login.css';
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = () => {
+  const [userID, setUserID] = useLocalStorage('userId')
   const [loginState, setLoginState] = useState({
     username: '',
     password: '',
@@ -63,6 +65,7 @@ const Login = () => {
       .post('/api/auth/login', loginState)
       .then(res => {
         console.log('Login Fetch: ', res);
+        setUserID(res.data.userId)
       })
       .catch(err => console.log('Login ERROR: ', err));
   };

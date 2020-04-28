@@ -19,7 +19,7 @@ function App() {
         <Navbar />
         <Switch>
           {/* <PrivateRoute exact path='/' component={Home} /> */}
-          <PrivateRoute exact path='/rentals' component={RentalPage} />
+          <Route exact path='/rentals' component={RentalPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={SignUp} />
           <PrivateRoute exact path='/myequipment' component={EquipOwner} />
