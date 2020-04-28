@@ -25,20 +25,6 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
-  const getEquipList = () => {
-    AxiosWithAuth()
-      .get(`/api/users/${id}`)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    getEquipList();
-  }, []);
-
   const getEquipList = () =>{
     AxiosWithAuth().get(`/api/users/${id}`)
     .then(res =>{
@@ -92,18 +78,6 @@ function EquipOwner() {
       ...equipmentValues,
       [ev.target.name]: ev.target.checked,
     });
-  };
-
-  const deleteTech = itemID => {
-    AxiosWithAuth()
-      .delete(`/api/users/${id}/rentals/equipment${itemID}`)
-      .then(res => {
-        console.log(res);
-        getEquipList();
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
   return (
     <div>
