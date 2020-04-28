@@ -21,7 +21,7 @@ function App() {
           {/* <PrivateRoute exact path='/' component={Home} /> */}
           <PrivateRoute exact path='/rentals' component={RentalPage} />
           <Route exact path='/login' component={Login} />
-          <Route exact path='/signup' component={SignUp} />
+          <Route exact path='/register' component={SignUp} />
           <PrivateRoute exact path='/myequipment' component={EquipOwner} />
         </Switch>
         <Footer />
