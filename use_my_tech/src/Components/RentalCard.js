@@ -1,9 +1,9 @@
 import React from 'react';
 
-function RentalCard({ product }) {
+function RentalCard({ product, onRentClick }) {
   const isRented = () => {
     if (product.renting === false) {
-      return <button>Rent this Now</button>;
+      return <button onClick={onRentClick}>Rent this Now</button>;
     } else {
       return <p>Some nice person is currently renting this product</p>;
     }
