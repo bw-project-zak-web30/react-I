@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Signup = () => {
+  const history = useHistory();
   const [signState, setSignState] = useState({
     username: '',
     password: '',
@@ -65,7 +66,7 @@ const Signup = () => {
     AxiosWithAuth().post('/api/auth/register', signState)
     .then(res =>{
       console.log("New User API: ", res);
-
+      history.push('/login');
     })
     .catch(err =>{
       console.log("Sign up submit ERROR: ", err.message.response);

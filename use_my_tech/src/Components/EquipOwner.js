@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import {useParams, useHistory} from 'react-router-dom';
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
@@ -13,6 +14,8 @@ const equipmentInitialValues = {
 };
 
 function EquipOwner() {
+
+  const {id} = useParams();
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
