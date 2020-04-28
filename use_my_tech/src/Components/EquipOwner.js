@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
@@ -20,6 +21,19 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
+  const getEquipList = () => {
+    AxiosWithAuth()
+      .get(`/api/users/${id}`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getEquipList();
+  }, []);
 
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
@@ -31,10 +45,11 @@ function EquipOwner() {
 
   const handleAddSubmit = ev => {
     ev.preventDefault();
-    axios
-      .post('', equipmentValues)
+    AxiosWithAuth()
+      .post(`/api/users/${id}`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
+        getEquipList();
       })
       .catch(err => {
         console.log('Add Equipment Error', err);
@@ -48,6 +63,17 @@ function EquipOwner() {
     });
   };
 
+  const deleteTech = itemID => {
+    AxiosWithAuth()
+      .delete(`/api/users/${id}/rentals/equipment${itemID}`)
+      .then(res => {
+        console.log(res);
+        getEquipList();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       {/* Add a new Equipment */}

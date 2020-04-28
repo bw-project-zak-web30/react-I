@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
-
 //-------MATERIAL UI IMPORTS---------
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -45,11 +44,11 @@ const Signup = () => {
     username: '',
     password: '',
     name: '',
-    city: ''
+    city: '',
   });
 
   const handleChange = ev => {
-    // ev.preventDefault();
+    ev.preventDefault();
 
     setSignState({
       ...signState,
@@ -60,16 +59,16 @@ const Signup = () => {
   const signUpSubmit = ev => {
     ev.preventDefault();
 
-    console.log(signState)
+    console.log(signState);
 
-    AxiosWithAuth().post('/api/auth/register', signState)
-    .then(res =>{
-      console.log("New User API: ", res);
-
-    })
-    .catch(err =>{
-      console.log("Sign up submit ERROR: ", err.message.response);
-    })
+    AxiosWithAuth()
+      .post('/api/auth/register', signState)
+      .then(res => {
+        console.log('New User API: ', res);
+      })
+      .catch(err => {
+        console.log('Sign up submit ERROR: ', err.message.response);
+      });
   };
 
   //----------MATERIAL UI STYLES ------
@@ -116,9 +115,7 @@ const Signup = () => {
             name='userName'
             placeholder='username'
             onChange={handleChange}
-
             value={signState.username}
-
             required
             fullWidth
             variant='outlined'
@@ -137,7 +134,6 @@ const Signup = () => {
             variant='outlined'
             margin='normal'
           />
-
           <Button
             type='submit'
             fullWidth
