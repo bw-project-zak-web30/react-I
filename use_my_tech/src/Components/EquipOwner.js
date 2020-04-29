@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
+import {useLocalStorage} from '../hooks/useLocalStorage';
+import {useHistory} from 'react-router-dom';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -43,6 +45,7 @@ const equipmentInitialValues = {
 };
 
 function EquipOwner() {
+  const history = useHistory();
   const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
   
