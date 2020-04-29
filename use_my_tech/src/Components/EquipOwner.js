@@ -6,18 +6,13 @@ import { useParams, useHistory } from 'react-router-dom';
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
   name: '',
-  renting: false,
   price: '',
   rentalTime: '',
   details: '',
-  // equipmentImage: '',
 };
 
 function EquipOwner() {
   const userId = localStorage.getItem('userId');
-
-  console.log(userId);
-  const {id} = useParams();
 
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
@@ -29,9 +24,10 @@ function EquipOwner() {
   //-------------BACKEND CALL--------------
 
   const getEquipList = () =>{
-    AxiosWithAuth().get(`/api/users/${userId}`)
+    AxiosWithAuth().get(`/api/users/${userId}/equipment`)
     .then(res =>{
       console.log(res);
+      setEquipments(res.data);
     })
     .catch(err =>{
       console.log(err);
@@ -52,8 +48,10 @@ function EquipOwner() {
 
   const handleAddSubmit = ev => {
     ev.preventDefault();
+    console.log(equipmentValues);
+
     AxiosWithAuth()
-      .post(`/api/users/${userId}`, equipmentValues)
+      .post(`/api/users/${userId}/equipment`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
         getEquipList();
@@ -64,7 +62,7 @@ function EquipOwner() {
   };
 
   const deleteTech = itemID =>{
-    AxiosWithAuth().delete(`/api/users/${userId}/rentals/equipment${itemID}`)
+    AxiosWithAuth().delete(`/api/users/${userId}/equipment/${itemID}`)
     .then(res => {
       console.log(res);
       getEquipList();
@@ -83,13 +81,15 @@ function EquipOwner() {
   };
   return (
     <div>
+
+
       {/* Add a new Equipment */}
       <form onSubmit={handleAddSubmit}>
         <label htmlFor='equipmentName'>
           <input
-            name='equipmentName'
+            name='name'
             type='text'
-            value={equipmentValues.equipmentName}
+            value={equipmentValues.name}
             onChange={handleAddChange}
             placeholder='Equipment Name'
           />
@@ -104,16 +104,6 @@ function EquipOwner() {
           />
         </label>
 
-        <label>
-          <input
-            checked={equipmentValues.renting}
-            onChange={onCheckboxChange}
-            name='renting'
-            type='checkbox'
-          />{' '}
-          Renting
-        </label>
-
         <label htmlFor='rentalTime'>
           <input
             name='rentalTime'
@@ -125,11 +115,11 @@ function EquipOwner() {
         </label>
         <label htmlFor='description'>
           <textarea
-            name='description'
+            name='details'
             type='text'
             rows='10'
             cols='30'
-            value={equipmentValues.description}
+            value={equipmentValues.details}
             onChange={handleAddChange}
             placeholder='Equipment Description'
           />
