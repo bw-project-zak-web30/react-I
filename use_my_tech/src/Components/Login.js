@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import {useLocalStorage} from '../hooks/useLocalStorage';
 
@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = () => {
+  const history = useHistory();
   const [userID, setUserID] = useLocalStorage('userId')
   const [loginState, setLoginState] = useState({
     username: '',
@@ -58,7 +59,9 @@ const Login = () => {
       .post('/api/auth/login', loginState)
       .then(res => {
         console.log('Login Fetch: ', res);
-        setUserID(res.data.userId)
+        setUserID(res.data.userId);
+        localStorage.setItem("token", res.data.token);
+        history.push('/');
       })
       .catch(err => console.log('Login ERROR: ', err));
   };
@@ -115,7 +118,7 @@ const Login = () => {
         </form>
         <div>
           <p>Don't have an account? </p>
-          <Link to='/signup'>Sign-Up Here!</Link>
+          <Link to='/register'>Sign-Up Here!</Link>
         </div>
       </div>
     </Container>

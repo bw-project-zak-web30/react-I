@@ -113,7 +113,7 @@ const Signup = () => {
           <TextField
             label='Username'
             id='username'
-            name='userName'
+            name='username'
             placeholder='username'
             onChange={handleChange}
             value={signState.username}
