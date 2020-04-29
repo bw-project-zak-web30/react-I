@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipOwnerCard from './EquipmentOwnerCard';
 import UserCard from './UserCard';
 
-import AxiosWithAuth from '../Utils/AxiosWithAuth';
-
 function ProfilePage() {
   //---------STATE------------------
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   const [myEquipments, setMyEquipments] = useState([]);
   const userId = localStorage.getItem('userId');
 
@@ -23,10 +22,14 @@ function ProfilePage() {
   return (
     <div>
       <UserCard details={user} />
-      <div>
+      <div className='user-equipment-container'>
+        <h2>Here is a list of all the equiments you currently have to rent</h2>
         {myEquipments.map(equipment => {
           return <EquipOwnerCard product={equipment} />;
         })}
+      </div>
+      <div className='user-renting-contianer'>
+        <h2>Here is a list all the equipments you are renting</h2>
       </div>
     </div>
   );
