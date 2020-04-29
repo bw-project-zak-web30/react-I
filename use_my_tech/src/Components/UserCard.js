@@ -1,7 +1,7 @@
 import React from 'react';
 
 // A card for every use that is created
-function UserCard({ details }) {
+function UserCard({ details, edit, remove }) {
   return (
     <div className='user-card'>
       <h2>Hello {details.userName}</h2>

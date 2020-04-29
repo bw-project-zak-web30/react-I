@@ -27,7 +27,7 @@ function ProfilePage() {
 
   useEffect(() =>{
     updateProfile();
-  })
+  }, [])
 
   const deleteProfile = proId =>{
     AxiosWithAuth().delete(`/api/users/${userId}`)
