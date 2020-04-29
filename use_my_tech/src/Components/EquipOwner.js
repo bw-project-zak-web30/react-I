@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { Input } from 'reactstrap';
+import EditEquipment from './EditEquipment';
 
 const useStyles = makeStyles(theme => ({
   paper: {
