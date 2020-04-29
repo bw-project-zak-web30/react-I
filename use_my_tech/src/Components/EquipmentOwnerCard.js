@@ -1,14 +1,27 @@
 import React from 'react';
+import {
+  Card,
+  Button,
+  CardHeader,
+  CardFooter,
+  CardBody,
+  CardTitle,
+  CardText,
+} from 'reactstrap';
 
 function EquipmentOwnerCard({ product, remove, id }) {
   return (
-    <div>
-      <h2>{product.name}</h2>
-      <p>Price: {product.price}</p>
-      <p>Details: {product.details}</p>
-      <button onClick={() => remove(id)}>Delete</button>
-      <button>Edit</button>
-    </div>
+    <Card>
+      <CardHeader>{product.name}</CardHeader>
+      <CardBody>
+        <CardTitle>Price: {product.price}</CardTitle>
+        <CardText>Details: {product.details}</CardText>
+        <div className='owner-button-container'>
+          <Button>Edit</Button>
+          <Button onClick={() => remove(id)}>Delete</Button>
+        </div>
+      </CardBody>
+    </Card>
   );
 }
 
