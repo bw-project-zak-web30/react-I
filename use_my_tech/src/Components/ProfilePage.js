@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import UserCard from './UserCard';
 import EquipOwner from './EquipOwner';
+import {useHistory} from 'react-router-dom';
 
 import '../styles/profile.css';
 
 function ProfilePage() {
+  const history = useHistory();
   //---------STATE------------------
   const [user, setUser] = useState({});
   const userId = localStorage.getItem('userId');
@@ -27,9 +29,21 @@ function ProfilePage() {
     updateProfile();
   })
 
+  const deleteProfile = proId =>{
+    AxiosWithAuth().delete(`/api/users/${userId}`)
+    .then(res =>{
+      console.log(res);
+      updateProfile();
+      history.push('/login');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   return (
     <div className='profile-container'>
-      <UserCard details={user} />
+      <UserCard details={user} remove={deleteProfile}/>
       <EquipOwner />
     </div>
   );
