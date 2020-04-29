@@ -1,7 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
-import { useParams, useHistory } from 'react-router-dom';
+import EquipmentOwnerCard from './EquipmentOwnerCard';
+
+//-------MATERIAL UI IMPORTS---------
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+import { Input } from 'reactstrap';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 //-------- Equipment Initial Values ---------
 const equipmentInitialValues = {
@@ -22,21 +53,21 @@ function EquipOwner() {
   );
 
   //-------------BACKEND CALL--------------
+  const getEquipList = () => {
+    AxiosWithAuth()
+      .get(`/api/users/${userId}/equipment`)
+      .then(res => {
+        console.log(res);
+        setEquipments(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-  const getEquipList = () =>{
-    AxiosWithAuth().get(`/api/users/${userId}/equipment`)
-    .then(res =>{
-      console.log(res);
-      setEquipments(res.data);
-    })
-    .catch(err =>{
-      console.log(err);
-    })
-  }
-
-    useEffect(() => {
-      getEquipList();
-    }, [])
+  useEffect(() => {
+    getEquipList();
+  }, []);
 
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
@@ -61,17 +92,17 @@ function EquipOwner() {
       });
   };
 
-  const deleteTech = itemID =>{
-    AxiosWithAuth().delete(`/api/users/${userId}/equipment/${itemID}`)
-    .then(res => {
-      console.log(res);
-      getEquipList();
-    })
-    .catch(err =>{
-      console.log(err);
-    })
+  const deleteTech = itemID => {
+    AxiosWithAuth()
+      .delete(`/api/users/${userId}/equipment/${itemID}`)
+      .then(res => {
+        console.log(res);
+        getEquipList();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
-
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
@@ -79,55 +110,83 @@ function EquipOwner() {
       [ev.target.name]: ev.target.checked,
     });
   };
+
+  //----------MATERIAL UI STYLES ------
+  const classes = useStyles();
+
   return (
-    <div>
-
-
-      {/* Add a new Equipment */}
-      <form onSubmit={handleAddSubmit}>
-        <label htmlFor='equipmentName'>
-          <input
-            name='name'
-            type='text'
-            value={equipmentValues.name}
-            onChange={handleAddChange}
-            placeholder='Equipment Name'
-          />
-        </label>
-        <label htmlFor='price'>
-          <input
-            name='price'
-            type='text'
-            value={equipmentValues.price}
-            onChange={handleAddChange}
-            placeholder='Price'
-          />
-        </label>
-
-        <label htmlFor='rentalTime'>
-          <input
-            name='rentalTime'
-            type='text'
-            value={equipmentValues.rentalTime}
-            onChange={handleAddChange}
-            placeholder='Renting Time'
-          />
-        </label>
-        <label htmlFor='description'>
-          <textarea
-            name='details'
-            type='text'
-            rows='10'
-            cols='30'
-            value={equipmentValues.details}
-            onChange={handleAddChange}
-            placeholder='Equipment Description'
-          />
-        </label>
-        <button>Add Equipment</button>
-      </form>
-      {/* Delete Equipment */}
-      <form action=''></form>
+    <div className='main-equipment-container'>
+      <Container>
+        {/* Add a new Equipment */}
+        <div className={classes.paper}>
+          <CssBaseline />
+          <Typography component='h1' variant='h5'>
+            Add A New Equipment
+          </Typography>
+          <form onSubmit={handleAddSubmit}>
+            <TextField
+              name='name'
+              type='text'
+              value={equipmentValues.name}
+              onChange={handleAddChange}
+              placeholder='Equipment Name'
+              fullWidth
+              variant='outlined'
+              margin='normal'
+            />
+            <TextField
+              name='price'
+              type='text'
+              value={equipmentValues.price}
+              onChange={handleAddChange}
+              placeholder='Price'
+              fullWidth
+              variant='outlined'
+              margin='normal'
+            />
+            <TextField
+              name='rentalTime'
+              type='number'
+              value={equipmentValues.rentalTime}
+              onChange={handleAddChange}
+              placeholder='Renting Days'
+              fullWidth
+              variant='outlined'
+              margin='normal'
+            />
+            <Input
+              name='details'
+              type='textarea'
+              value={equipmentValues.details}
+              onChange={handleAddChange}
+              placeholder='Equipment Description'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              className={classes.submit}
+            >
+              Add Equipment
+            </Button>
+          </form>
+          {/* Delete Equipment */}
+          {/* <form action=''></form> */}
+        </div>
+      </Container>
+      <div className='user-equipment-container'>
+        <h3>Your Equipments</h3>
+        <div className='card-holder'>
+          {equipments.map(equipment => {
+            return (
+              <EquipmentOwnerCard key={equipment.id} product={equipment} />
+            );
+          })}
+        </div>
+      </div>
+      <div className='user-renting-contianer'>
+        <h3>Equipments You Are Renting</h3>
+      </div>
     </div>
   );
 }

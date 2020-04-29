@@ -22,8 +22,8 @@ function App() {
           <Route exact path='/rentals' component={RentalPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={SignUp} />
-          <Route exact path='/myequipment' component={EquipOwner} />
-          <Route exact path='/profilePage' component={ProfilePage} />
+          {/* <Route exact path='/myequipment' component={EquipOwner} /> */}
+          <Route exact path='/myequipment' component={ProfilePage} />
         </Switch>
         <Footer />
       </div>

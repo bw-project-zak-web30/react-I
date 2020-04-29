@@ -9,7 +9,6 @@ import {
   CardText,
 } from 'reactstrap';
 
-
 function RentalCard({ product, rentNow }) {
   const isRented = () => {
     if (product.renting === false) {
