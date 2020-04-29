@@ -6,8 +6,8 @@ const AxiosAuth = () => {
   return axios.create({
     baseURL: 'https://usemytechstuffmb.herokuapp.com',
     // headers: {
-    //   Authorization: token,
-    // },
+    //   Authorization: token
+    // }
   });
 };
 
