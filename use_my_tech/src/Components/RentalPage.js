@@ -6,48 +6,42 @@ import Search from './Search';
 //------REACTSTRAP---------------
 import { Spinner } from 'reactstrap';
 
-
-
 function RentalPage() {
   const userId = localStorage.getItem('userId');
 
   const today = new Date().toISOString();
 
-  const returnRent = theDate =>{
+  const returnRent = theDate => {
     console.log(theDate);
 
     let newDay = new Date();
     newDay.setDate(newDay.getDate() + theDate);
     let dateString = newDay.toISOString();
-    let returnDay = dateString.slice(0,10);
+    let returnDay = dateString.slice(0, 10);
     return returnDay;
-    
-  }
+  };
 
   //--------------------State--------------------
   const [rentals, setRentals] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const [itemRent, setItemRent] = useState(
-    {
-      return_date: '',
-      start_date: today.slice(0,10),
-      details: rentals.details,
-      renter_id: parseInt(userId),
-      owner_id: rentals.owner_id,
-      equipment_id: rentals.id
-    }
-  )
+  const [itemRent, setItemRent] = useState({
+    return_date: '',
+    start_date: today.slice(0, 10),
+    details: rentals.details,
+    renter_id: parseInt(userId),
+    owner_id: rentals.owner_id,
+    equipment_id: rentals.id,
+  });
 
-    console.log(itemRent);
+  console.log(itemRent);
   //-------------------Backend Call--------------
 
   useEffect(() => {
     getRentals();
   }, []);
-  
-  const getRentals = () =>{
 
+  const getRentals = () => {
     AxiosWithAuth()
       .get('/api/equipment')
       .then(res => {
@@ -57,18 +51,17 @@ function RentalPage() {
       .catch(err => {
         console.log('Could not grab the equipments', err);
       });
+  };
 
-  }
-
-
-  const rentNow = (item) => {
+  const rentNow = item => {
     setItemRent({
       ...itemRent,
-      return_date:returnRent(item.timeframe),
-      details:item.details,
-      owner_id:item.owner_id,
-      equipment_id:item.id
+      return_date: returnRent(item.timeframe),
+      details: item.details,
+      owner_id: item.owner_id,
+      equipment_id: item.id,
     });
+
 
     AxiosWithAuth().post(`/api/equipment`, itemRent)
     .then(res =>{
@@ -79,7 +72,6 @@ function RentalPage() {
       console.log(err);
     })
   }
-
 
   //--------------Handlers-----------------
   const onRentClick = evt => {
