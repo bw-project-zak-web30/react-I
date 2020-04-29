@@ -9,6 +9,7 @@ import SignUp from './Components/Signup';
 import Footer from './Components/Footer';
 import PrivateRoute from './Components/PrivateRoute';
 import EquipOwner from './Components/EquipOwner';
+import EditEquipment from './Components/EditEquipment';
 
 import './App.css';
 
@@ -19,11 +20,12 @@ function App() {
         <Navbar />
         <Switch>
           {/* <PrivateRoute exact path='/' component={Home} /> */}
-          <Route exact path='/rentals' component={RentalPage} />
+          <PrivateRoute exact path='/rentals' component={RentalPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={SignUp} />
           {/* <Route exact path='/myequipment' component={EquipOwner} /> */}
-          <Route exact path='/myequipment' component={ProfilePage} />
+          <PrivateRoute exact path='/myequipment' component={ProfilePage} />
+          <PrivateRoute exact path='/editForm' component={EditEquipment} />
         </Switch>
         <Footer />
       </div>

@@ -45,7 +45,8 @@ const equipmentInitialValues = {
 
 function EquipOwner() {
   const userId = localStorage.getItem('userId');
-
+  const [id, setId] = useLocalStorage('itemId');
+  
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -69,7 +70,6 @@ function EquipOwner() {
   useEffect(() => {
     getEquipList();
   }, []);
-
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
     setEquipmentValues({
@@ -104,6 +104,11 @@ function EquipOwner() {
         console.log(err);
       });
   };
+
+  const editItem = itemID =>{
+    setId(itemID);    
+    history.pushState('/editForm');
+  }
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
@@ -180,7 +185,7 @@ function EquipOwner() {
         <div className='card-holder'>
           {equipments.map(equipment => {
             return (
-              <EquipmentOwnerCard key={equipment.id} product={equipment} />
+              <EquipmentOwnerCard key={equipment.id} product={equipment} remove={deleteTech} edit={editItem}/>
             );
           })}
         </div>
