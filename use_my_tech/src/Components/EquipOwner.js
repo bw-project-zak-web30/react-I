@@ -198,9 +198,6 @@ function EquipOwner() {
           })}
         </div>
       </div>
-      <div className='user-renting-contianer'>
-        <h3>Equipments You Are Renting</h3>
-      </div>
     </div>
   );
 }
