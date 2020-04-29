@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
@@ -15,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { Input } from 'reactstrap';
+import EditEquipment from './EditEquipment';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -48,7 +50,9 @@ function EquipOwner() {
   const history = useHistory();
   const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
-  
+
+  const history = useHistory();
+
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -107,10 +111,10 @@ function EquipOwner() {
       });
   };
 
-  const editItem = itemID =>{
-    setId(itemID);    
+  const editItem = itemID => {
+    setId(itemID);
     history.pushState('/editForm');
-  }
+  };
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
@@ -187,7 +191,12 @@ function EquipOwner() {
         <div className='card-holder'>
           {equipments.map(equipment => {
             return (
-              <EquipmentOwnerCard key={equipment.id} product={equipment} remove={deleteTech} edit={editItem}/>
+              <EquipmentOwnerCard
+                key={equipment.id}
+                product={equipment}
+                remove={deleteTech}
+                edit={editItem}
+              />
             );
           })}
         </div>

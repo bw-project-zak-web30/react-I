@@ -3,13 +3,12 @@ import {
   Card,
   Button,
   CardHeader,
-  CardFooter,
   CardBody,
   CardTitle,
   CardText,
 } from 'reactstrap';
 
-function EquipmentOwnerCard({ product, remove, edit }) {
+function RentedCard({ product, remove }) {
   return (
     <Card>
       <CardHeader>{product.name}</CardHeader>
@@ -17,12 +16,11 @@ function EquipmentOwnerCard({ product, remove, edit }) {
         <CardTitle>Price: {product.price}</CardTitle>
         <CardText>Details: {product.details}</CardText>
         <div className='owner-button-container'>
-          <Button onClick={() => edit(product.id)}>Edit</Button>
-          <Button onClick={() => remove(product.id)}>Delete</Button>
+          <Button onClick={() => remove(product.id)}>Return</Button>
         </div>
       </CardBody>
     </Card>
   );
 }
 
-export default EquipmentOwnerCard;
+export default RentedCard;
