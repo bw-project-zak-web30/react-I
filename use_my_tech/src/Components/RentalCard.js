@@ -1,14 +1,6 @@
 import React from 'react';
 
-import {
-  Card,
-  Button,
-  CardHeader,
-  CardFooter,
-  CardBody,
-  CardTitle,
-  CardText,
-} from 'reactstrap';
+import { Card, Button, CardHeader, CardTitle, CardText } from 'reactstrap';
 
 function RentalCard({ product, onRentClick }) {
   const isRented = () => {
