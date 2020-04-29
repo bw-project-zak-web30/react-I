@@ -62,18 +62,16 @@ function RentalPage() {
       equipment_id: item.id,
     });
 
-    console.log(itemRent);
 
-    AxiosWithAuth()
-      .post(`/api/equipment`, itemRent)
-      .then(res => {
-        console.log(res);
-        getRentals();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+    AxiosWithAuth().post(`/api/equipment`, itemRent)
+    .then(res =>{
+      console.log(res);
+      getRentals();
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
 
   //--------------Handlers-----------------
   const onRentClick = evt => {

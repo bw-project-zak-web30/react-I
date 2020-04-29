@@ -9,7 +9,7 @@ import {
   CardText,
 } from 'reactstrap';
 
-function EquipmentOwnerCard({ product, remove, id }) {
+function EquipmentOwnerCard({ product, remove }) {
   return (
     <Card>
       <CardHeader>{product.name}</CardHeader>
@@ -17,8 +17,8 @@ function EquipmentOwnerCard({ product, remove, id }) {
         <CardTitle>Price: {product.price}</CardTitle>
         <CardText>Details: {product.details}</CardText>
         <div className='owner-button-container'>
-          <Button>Edit</Button>
-          <Button onClick={() => remove(id)}>Delete</Button>
+          <Button onClick={() => edit(product.id)}>Edit</Button>
+          <Button onClick={() => remove(product.id)}>Delete</Button>
         </div>
       </CardBody>
     </Card>
