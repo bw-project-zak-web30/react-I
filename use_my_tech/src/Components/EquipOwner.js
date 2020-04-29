@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
@@ -46,7 +47,9 @@ const equipmentInitialValues = {
 function EquipOwner() {
   const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
-  
+
+  const history = useHistory();
+
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
 
@@ -105,10 +108,10 @@ function EquipOwner() {
       });
   };
 
-  const editItem = itemID =>{
-    setId(itemID);    
+  const editItem = itemID => {
+    setId(itemID);
     history.pushState('/editForm');
-  }
+  };
 
   const onCheckboxChange = ev => {
     setEquipmentValues({
@@ -185,7 +188,12 @@ function EquipOwner() {
         <div className='card-holder'>
           {equipments.map(equipment => {
             return (
-              <EquipmentOwnerCard key={equipment.id} product={equipment} remove={deleteTech} edit={editItem}/>
+              <EquipmentOwnerCard
+                key={equipment.id}
+                product={equipment}
+                remove={deleteTech}
+                edit={editItem}
+              />
             );
           })}
         </div>
