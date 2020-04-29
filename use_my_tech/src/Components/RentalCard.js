@@ -26,7 +26,7 @@ function RentalCard({ product, rentNow }) {
       <div className='card-text-container'>
         <CardTitle>Price Per Day: ${product.price}</CardTitle>
         <CardText>Details: {product.details}</CardText>
-        <CardText>Rent Timeframe: {product.timeframe} days</p>
+        <CardText>Rent Timeframe: {product.timeframe} days</CardText>
         {/* If statement for if product is being rented or not */}
         {isRented()}
       </div>

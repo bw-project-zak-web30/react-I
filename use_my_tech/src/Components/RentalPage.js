@@ -70,8 +70,6 @@ function RentalPage() {
       equipment_id:item.id
     });
 
-    console.log(itemRent);
-
     AxiosWithAuth().post(`/api/equipment`, itemRent)
     .then(res =>{
       console.log(res);
