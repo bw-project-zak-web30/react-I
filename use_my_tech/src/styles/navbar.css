@@ -31,10 +31,10 @@ nav {
   nav {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   .nav-links {
     width: 100%;
     justify-content: space-evenly;
   }
-
 }

@@ -4,7 +4,7 @@ import React from 'react';
 function UserCard({ details }) {
   return (
     <div>
-      <h2>{details.userName}</h2>
+      <h2>Hello {details.userName}</h2>
       <h3>{details.name}</h3>
       <p>{details.city}</p>
     </div>
