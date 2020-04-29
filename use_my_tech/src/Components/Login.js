@@ -61,7 +61,7 @@ const Login = () => {
         console.log('Login Fetch: ', res);
         setUserID(res.data.userId);
         localStorage.setItem("token", res.data.token);
-        history.push('/');
+        history.push('/myequipment');
       })
       .catch(err => console.log('Login ERROR: ', err));
   };
