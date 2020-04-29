@@ -7,6 +7,8 @@ function UserCard({ details }) {
       <h2>Hello {details.userName}</h2>
       <h3>{details.name}</h3>
       <p>{details.city}</p>
+      <button onClick={() => edit(details.id)}>Edit Profile</button>
+      <button onClick={() =>remove(details.id)}>Delete Profile</button>
     </div>
   );
 }
