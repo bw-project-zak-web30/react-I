@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import UserCard from './UserCard';
+import EquipOwner from './EquipOwner';
+
+import '../styles/profile.css';
 
 function ProfilePage() {
+  //---------STATE------------------
+  const [user, setUser] = useState({});
+  const [myEquipments, setMyEquipments] = useState([]);
+  const userId = localStorage.getItem('userId');
+
+  //----------BACKEND CALL---------------
+
   return (
-    <div>
-      <h1>I am the Profile Page</h1>
+    <div className='profile-container'>
+      <UserCard details={user} />
+      <EquipOwner />
     </div>
   );
 }
