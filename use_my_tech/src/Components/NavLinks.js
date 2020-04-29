@@ -8,6 +8,7 @@ function NavLinks() {
       <Link to='/rentals'>Rental</Link>
       <Link to='/login'>Login</Link>
       <Link to='/register'>Sign Up</Link>
+      <Link to="/myequipment" >My Equipment</Link>
     </Fragment>
   );
 }
