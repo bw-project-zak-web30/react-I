@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -36,12 +37,20 @@ function EditEquipment() {
 
   //-----------------------------------------
   const userId = localStorage.getItem('userId');
-  // const itemId = localStorage.getItem('itemId');
+  const itemId = localStorage.getItem('itemId');
   //------------State-----------------------------
   const [equipment, setEquipment] = useState({});
   const [equipmentValues, setEquipmentValues] = useState(equipment);
 
   //-----------Backend call------------------
+  AxiosWithAuth()
+    .get(`/api/users/${userId}/equipment/${itemId}`)
+    .then(res => {
+      console.log('Got the item', res.data);
+    })
+    .catch(err => {
+      console.log('Did not get item', err);
+    });
 
   //--------------Handlers--------------------
   const handleEditChange = ev => {
