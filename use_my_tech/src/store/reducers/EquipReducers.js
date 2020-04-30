@@ -6,13 +6,13 @@ const initialState = {
 
 export const EquipReducer = (state = initialState, action) =>{
     switch(action.type){
-        case 'FETCH_ITEMS_START':
+        case 'FETCH_EQUIP_START':
             return{
                 ...state,
                 isFetching:true
             }
 
-        case 'FETCH_ITEMS_SUCCESS':
+        case 'FETCH_EQUIP_SUCCESS':
             return{
                 ...state,
                 equipments:action.payload,
@@ -21,7 +21,7 @@ export const EquipReducer = (state = initialState, action) =>{
             }
         
 
-        case 'FETCH_ITEMS_FAIL':
+        case 'FETCH_EQUIP_FAIL':
             return{
                 ...state,
                 isFetching:false,
@@ -29,3 +29,5 @@ export const EquipReducer = (state = initialState, action) =>{
             }
     }
 }
+
+export default EquipReducer;

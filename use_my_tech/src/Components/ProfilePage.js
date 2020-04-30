@@ -10,8 +10,7 @@ function ProfilePage() {
   const history = useHistory();
   //---------STATE------------------
   const [user, setUser] = useState({});
-  const userId = localStorage.getItem('userId');
-
+  const userId =parseInt(localStorage.getItem('userId'));
   //----------BACKEND CALL---------------
 
   const updateProfile = () =>{
@@ -30,6 +29,8 @@ function ProfilePage() {
   }, [])
 
   const deleteProfile = proId =>{
+    console.log("The UserID:",userId);
+
     AxiosWithAuth().delete(`/api/users/${userId}`)
     .then(res =>{
       console.log(res);

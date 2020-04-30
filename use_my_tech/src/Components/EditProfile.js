@@ -30,6 +30,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const initialEdit = {
+  name:'',
+  city:'',
+  username:''
+}
+
 function EditProfile(props) {
   const history = useHistory();
   const userId = localStorage.getItem('userId');
@@ -37,7 +43,6 @@ function EditProfile(props) {
   const classes = useStyles();
   //------------State------------------
   const [user, setUsers] = useState({});
-  const [editValues, setEditValues] = useState(user);
 
   //-----------Handlers----------------
   const handleChange = ev => {
@@ -53,16 +58,24 @@ function EditProfile(props) {
     AxiosWithAuth().get(`/api/users/${userId}`)
     .then(res => {
       console.log(res);
-      setUsers(res.data);
+      setUsers({
+        name:res.data.name,
+        city:res.data.city,
+        username:res.data.username
+      });
     })
     .catch(err =>{
       console.log(err);
     })
+    console.log(user);
   },[])
 
   const editSubmit = ev => {
     ev.preventDefault();
-    AxiosWithAuth().post(`/api/users/${userId}`, user)
+
+    console.log(user);
+
+    AxiosWithAuth().put(`/api/users/${userId}`, user)
     .then(res =>{
       console.log("New Editted profile: ",res);
       props.getProfileUpdate();
@@ -106,7 +119,7 @@ function EditProfile(props) {
             margin='normal'
           />
           <TextField
-            label='Username'
+            label='username'
             id='username'
             name='username'
             placeholder='username'

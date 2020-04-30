@@ -54,10 +54,14 @@ function App() {
           <Route exact path='/register' component={SignUp} />
           {/* <Route exact path='/myequipment' component={EquipOwner} /> */}
           <PrivateRoute exact path='/myequipment' component={ProfilePage} />
+          
           <PrivateRoute exact path='/editForm'>
             <EditEquipment getEquipList={getEquipList}/>
-            </PrivateRoute>
-          <PrivateRoute exact path='/profileEdit' ><EditProfile getProfileUpdate={getProfile}/></PrivateRoute>
+          </PrivateRoute>
+
+          <PrivateRoute exact path='/profileEdit' >
+            <EditProfile getProfileUpdate={getProfile}/>
+          </PrivateRoute>
         </Switch>
         <Footer />
       </div>
