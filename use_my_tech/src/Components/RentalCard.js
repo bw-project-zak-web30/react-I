@@ -13,13 +13,13 @@ function RentalCard({ product, rentNow }) {
   const isRented = () => {
     if (product.renting === false) {
       return (
-        <button
+        <Button
           onClick={() => {
             rentNow(product);
           }}
         >
           Rent this Now
-        </button>
+        </Button>
       );
     } else {
       return (
