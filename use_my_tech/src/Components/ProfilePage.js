@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import '../styles/profile.css';
 import RentedCard from './RentedCard';
+import Rentend from './Rentend';
 
 function ProfilePage() {
   const history = useHistory();
@@ -14,7 +15,6 @@ function ProfilePage() {
   const userId =parseInt(localStorage.getItem('userId'));
   const [rentals, setRentals] = useState([]);
   //----------BACKEND CALL---------------
-
   const updateProfile = () => {
     AxiosWithAuth()
       .get(`/api/users/${userId}`)
@@ -29,7 +29,7 @@ function ProfilePage() {
 
   useEffect(() => {
     updateProfile();
-  }, [])
+  }, []);
 
   const deleteProfile = proId =>{
     console.log("The UserID:",userId);
@@ -46,19 +46,12 @@ function ProfilePage() {
   }
 const editProfile = proId =>{
     history.push('/profileEdit');
-  }
+  };
   return (
     <div className='profile-container'>
-      <UserCard details={user} remove={deleteProfile} edit={editProfile}/>
+      <UserCard details={user} remove={deleteProfile} edit={editProfile} />
       <EquipOwner />
-      <div className='user-renting-contianer'>
-        <h3>Equipments You Are Renting</h3>
-        <div>
-          {rentals.map(rental => {
-            return <RentedCard />;
-          })}
-        </div>
-      </div>
+      <Rentend />
     </div>
   );
 }
