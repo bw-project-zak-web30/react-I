@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 //-------- Equipment Initial Values ---------
 const userId = localStorage.getItem('userId');
+console.log(userId);
 const equipmentInitialValues = {
   owner_id:parseInt(userId),
   name: '',

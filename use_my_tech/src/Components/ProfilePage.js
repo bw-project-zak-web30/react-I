@@ -40,10 +40,12 @@ function ProfilePage() {
       console.log(err);
     })
   }
-
+const editProfile = proId =>{
+    history.push('/profileEdit');
+  }
   return (
     <div className='profile-container'>
-      <UserCard details={user} remove={deleteProfile}/>
+      <UserCard details={user} remove={deleteProfile} edit={editProfile}/>
       <EquipOwner />
     </div>
   );

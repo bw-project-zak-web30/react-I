@@ -111,7 +111,7 @@ function RentalPage() {
             <RentalCard
               key={rental.id}
               product={rental}
-              onRentClick={onRentClick}
+              rentNow={rentNow}
             />
           );
         })}

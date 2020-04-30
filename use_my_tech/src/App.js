@@ -11,12 +11,14 @@ import PrivateRoute from './Components/PrivateRoute';
 import EquipOwner from './Components/EquipOwner';
 import EditEquipment from './Components/EditEquipment';
 import AxiosWithAuth from './Utils/AxiosWithAuth';
+import EditProfile from './Components/EditProfile';
 
 import './App.css';
 
 function App() {
   const userId = localStorage.getItem('userId');
   const [equipments, setEquipments] = useState([]);
+  const [user, setUser] = useState({});
 
   const getEquipList = () => {
     AxiosWithAuth()
@@ -29,6 +31,17 @@ function App() {
         console.log(err);
       });
   };
+
+  const getProfile = () =>{
+    AxiosWithAuth().get(`/api/users/${userId}`)
+    .then(res => {
+      console.log(res);
+      setUser(res.data);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
 
   return (
     <Router>
@@ -44,6 +57,7 @@ function App() {
           <PrivateRoute exact path='/editForm'>
             <EditEquipment getEquipList={getEquipList}/>
             </PrivateRoute>
+          <PrivateRoute exact path='/profileEdit' ><EditProfile getProfileUpdate={getProfile}/></PrivateRoute>
         </Switch>
         <Footer />
       </div>

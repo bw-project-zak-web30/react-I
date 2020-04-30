@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import {useHistory} from 'react-router-dom';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -28,7 +30,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function EditProfile() {
+function EditProfile(props) {
+  const history = useHistory();
+  const userId = localStorage.getItem('userId');
   //----------MATERIAL UI STYLES ------
   const classes = useStyles();
   //------------State------------------
@@ -39,13 +43,35 @@ function EditProfile() {
   const handleChange = ev => {
     ev.preventDefault();
 
-    setEditValues({
-      ...editValues,
+    setUsers({
+      ...user,
       [ev.target.name]: ev.target.value,
     });
   };
 
-  const editSubmit = ev => {};
+  useEffect(() =>{
+    AxiosWithAuth().get(`/api/users/${userId}`)
+    .then(res => {
+      console.log(res);
+      setUsers(res.data);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  },[])
+
+  const editSubmit = ev => {
+    ev.preventDefault();
+    AxiosWithAuth().post(`/api/users/${userId}`, user)
+    .then(res =>{
+      console.log("New Editted profile: ",res);
+      props.getProfileUpdate();
+      history.push('/myequipment');
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  };
 
   return (
     <Container>
@@ -56,7 +82,7 @@ function EditProfile() {
         </Typography>
         <form onSubmit={editSubmit}>
           <TextField
-            label='Name'
+            label='name'
             id='name'
             name='name'
             placeholder='Full name with spaces'
@@ -82,7 +108,7 @@ function EditProfile() {
           <TextField
             label='Username'
             id='username'
-            name='userName'
+            name='username'
             placeholder='username'
             onChange={handleChange}
             value={user.username}
