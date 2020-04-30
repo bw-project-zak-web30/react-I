@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
+import AddEquipment from './AddEquipment';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -15,26 +16,6 @@ import Container from '@material-ui/core/Container';
 
 import { Input } from 'reactstrap';
 import EditEquipment from './EditEquipment';
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 //-------- Equipment Initial Values ---------
 const userId =parseInt(localStorage.getItem('userId'));
@@ -50,7 +31,6 @@ const equipmentInitialValues = {
 
 const EquipOwner = props => {
   const history = useHistory();
-  const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
 
   //----------------STATE-------------------------
@@ -77,28 +57,6 @@ const EquipOwner = props => {
     getEquipList();
   }, []);
   // --------------HANDLERS-----------------
-  const handleAddChange = ev => {
-    setEquipmentValues({
-      ...equipmentValues,
-      [ev.target.name]: ev.target.value,
-    });
-  };
-
-  const handleAddSubmit = ev => {
-    ev.preventDefault();
-
-    console.log(equipmentValues);
-
-    AxiosWithAuth()
-      .post(`/api/users/${userId}/equipment`, equipmentValues)
-      .then(res => {
-        console.log('Added Equipment to backend', res);
-        getEquipList();
-      })
-      .catch(err => {
-        console.log('Add Equipment Error', err);
-      });
-  };
 
   const deleteTech = itemID => {
     AxiosWithAuth()
@@ -125,68 +83,10 @@ const EquipOwner = props => {
   };
 
   //----------MATERIAL UI STYLES ------
-  const classes = useStyles();
 
   return (
     <div className='main-equipment-container'>
-      <Container>
-        {/* Add a new Equipment */}
-        <div className={classes.paper}>
-          <CssBaseline />
-          <Typography component='h1' variant='h5'>
-            Add A New Equipment
-          </Typography>
-          <form onSubmit={handleAddSubmit}>
-            <TextField
-              name='name'
-              type='text'
-              value={equipmentValues.name}
-              onChange={handleAddChange}
-              placeholder='Equipment Name'
-              fullWidth
-              variant='outlined'
-              margin='normal'
-            />
-            <TextField
-              name='price'
-              type='number'
-              value={equipmentValues.price}
-              onChange={handleAddChange}
-              placeholder='Price'
-              fullWidth
-              variant='outlined'
-              margin='normal'
-            />
-            <TextField
-              name='timeframe'
-              type='number'
-              value={equipmentValues.timeframe}
-              onChange={handleAddChange}
-              placeholder='Renting Days'
-              fullWidth
-              variant='outlined'
-              margin='normal'
-            />
-            <Input
-              name='details'
-              type='textarea'
-              value={equipmentValues.details}
-              onChange={handleAddChange}
-              placeholder='Equipment Description'
-            />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              className={classes.submit}
-            >
-              Add Equipment
-            </Button>
-          </form>
-          {/* Delete Equipment */}
-          {/* <form action=''></form> */}
-        </div>
-      </Container>
+      <AddEquipment getEquipList={getEquipList}/>
       <div className='user-equipment-container'>
         <h3>Your Equipments</h3>
         <div className='card-holder'>

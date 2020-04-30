@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useHistory} from 'react-router-dom'
 
 import '../styles/navbar.css';
 
 function Navbar() {
+  const history = useHistory();
+
   const signOutHandler = evt => {
     evt.preventDefault();
+    localStorage.clear();
+    history.push('/login');
   };
 
   return (
@@ -24,7 +29,6 @@ function Navbar() {
         <Link to='/register'>Sign Up</Link>
         <Link to='/myequipment'>My Equipment</Link>
         <a href='' onClick={signOutHandler}>
-          {' '}
           Sign Out
         </a>
       </div>
