@@ -12,10 +12,8 @@ function ProfilePage() {
   const history = useHistory();
   //---------STATE------------------
   const [user, setUser] = useState({});
-  const userId = localStorage.getItem('userId');
-
+  const userId =parseInt(localStorage.getItem('userId'));
   const [rentals, setRentals] = useState([]);
-
   //----------BACKEND CALL---------------
   const updateProfile = () => {
     AxiosWithAuth()
@@ -33,19 +31,20 @@ function ProfilePage() {
     updateProfile();
   }, []);
 
-  const deleteProfile = proId => {
-    AxiosWithAuth()
-      .delete(`/api/users/${userId}`)
-      .then(res => {
-        console.log(res);
-        updateProfile();
-        history.push('/login');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  const editProfile = proId => {
+  const deleteProfile = proId =>{
+    console.log("The UserID:",userId);
+
+    AxiosWithAuth().delete(`/api/users/${userId}`)
+    .then(res =>{
+      console.log(res);
+      updateProfile();
+      history.push('/login');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+const editProfile = proId =>{
     history.push('/profileEdit');
   };
   return (

@@ -37,10 +37,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 //-------- Equipment Initial Values ---------
-const userId = localStorage.getItem('userId');
+const userId =parseInt(localStorage.getItem('userId'));
 console.log(userId);
+
 const equipmentInitialValues = {
-  owner_id:parseInt(userId),
+  owner_id:userId,
   name: '',
   price: parseInt(''),
   timeframe: parseInt(''),
@@ -97,7 +98,6 @@ function EquipOwner() {
       .catch(err => {
         console.log('Add Equipment Error', err);
       });
-    console.log(equipmentValues);
   };
 
   const deleteTech = itemID => {
