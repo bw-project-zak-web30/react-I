@@ -1,6 +1,5 @@
 import React from 'react';
-import NavLinks from './NavLinks';
-import { Links } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import '../styles/navbar.css';
 
@@ -18,9 +17,12 @@ function Navbar() {
         />
       </div>
       <div className='nav-links'>
-        <NavLinks />
-        {/* Drop Down Menu Once logged in */}
+        <a href='https://usemytechstuff2.netlify.app/'>Home</a>
+        <Link to='/rentals'>Rental</Link>
         {/* if logged in show these links */}
+        <Link to='/login'>Login</Link>
+        <Link to='/register'>Sign Up</Link>
+        <Link to='/myequipment'>My Equipment</Link>
         <a href='' onClick={signOutHandler}>
           {' '}
           Sign Out
