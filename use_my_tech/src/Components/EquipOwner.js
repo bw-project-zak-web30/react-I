@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import {connect} from 'react-redux';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
 
@@ -48,7 +48,7 @@ const equipmentInitialValues = {
   details: '',
 };
 
-function EquipOwner() {
+const EquipOwner = props => {
   const history = useHistory();
   const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
