@@ -4,9 +4,9 @@ import React from 'react';
 function UserCard({ details, edit, remove }) {
   return (
     <div className='user-card'>
-      <h2>Hello {details.username}</h2>
+      <h2>Hello {details.username}!</h2>
       <h3>{details.name}</h3>
-      <p>{details.city}</p>
+      <p>Located: {details.city}</p>
       <button onClick={() => edit(details.id)}>Edit Profile</button>
       <button onClick={() => remove(details.id)}>Delete Profile</button>
     </div>
