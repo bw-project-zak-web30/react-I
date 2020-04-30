@@ -46,7 +46,7 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        <Navbar />
+        <Navbar user={user} getProfile={getProfile}/>
         <Switch>
           {/* <PrivateRoute exact path='/' component={Home} /> */}
           <PrivateRoute exact path='/rentals' component={RentalPage} />
