@@ -26,10 +26,7 @@ const Navbar = props => {
         <a href='https://usemytechstuff2.netlify.app/'>Home</a>
         <Link to='/rentals'>Rental</Link>
         {/* if logged in show these links */}
-       
-        
         <Link to='/myequipment'>My Equipment</Link>
-       
 
       {localStorage.getItem('token') !== null ?  <a href='' onClick={signOutHandler}>
           Sign Out
