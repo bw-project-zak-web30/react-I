@@ -18,7 +18,7 @@ import './App.css';
 function App() {
   const userId = localStorage.getItem('userId');
   const [equipments, setEquipments] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   const getEquipList = () => {
     AxiosWithAuth()
@@ -47,7 +47,7 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        <Navbar currentUser={user} />
+        <Navbar />
         <Switch>
           {/* <PrivateRoute exact path='/' component={Home} /> */}
           <PrivateRoute exact path='/rentals' component={RentalPage} />
