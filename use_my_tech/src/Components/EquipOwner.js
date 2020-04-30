@@ -49,6 +49,7 @@ const equipmentInitialValues = {
 
 function EquipOwner() {
   const history = useHistory();
+  const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
 
   //----------------STATE-------------------------
@@ -200,9 +201,6 @@ function EquipOwner() {
             );
           })}
         </div>
-      </div>
-      <div className='user-renting-contianer'>
-        <h3>Equipments You Are Renting</h3>
       </div>
     </div>
   );
