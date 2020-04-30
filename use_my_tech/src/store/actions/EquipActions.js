@@ -3,12 +3,12 @@ import Axios from 'axios';
 
 export const fetchEquipment = () =>{
     const userId =parseInt(localStorage.getItem('userId'));
+    console.log("EquipAction user: ",userId)
     return dispatch =>{
-        dispatch({type:'FETCH_EQUIP_START'})
         AxiosWithAuth().get(`/api/users/${userId}/equipment`)
         .then(res =>{
-            console.log("fetched API: ", res.data);
-            dispatch({type:'FETCH_EQUIP_SUCCESS', payload:res.data});
+            console.log("fetched API: ", res);
+            dispatch({type:'FETCH_EQUIP_SUCCESS', payload:res});
         })
         .catch(err => {
             console.log('fetched API ERROR: ', err);

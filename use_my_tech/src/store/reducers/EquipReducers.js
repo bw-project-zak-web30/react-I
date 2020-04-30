@@ -1,5 +1,5 @@
 const initialState = {
-    equipments:[],
+    equipment:[],
     isFetching:false,
     error:'',
 }
@@ -15,7 +15,7 @@ export const EquipReducer = (state = initialState, action) =>{
         case 'FETCH_EQUIP_SUCCESS':
             return{
                 ...state,
-                equipments:action.payload,
+                equipment:action.payload,
                 isFetching:false,
                 error:''
             }
