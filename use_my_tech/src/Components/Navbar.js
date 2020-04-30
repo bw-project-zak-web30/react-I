@@ -1,9 +1,12 @@
 import React from 'react';
 import NavLinks from './NavLinks';
+import { Links } from 'react-router-dom';
 
 import '../styles/navbar.css';
 
 function Navbar() {
+  const signOutHandler = evt => {};
+
   return (
     <nav>
       <div className='nav-logo'>
@@ -15,6 +18,11 @@ function Navbar() {
       <div className='nav-links'>
         <NavLinks />
         {/* Drop Down Menu Once logged in */}
+        {/* if logged in show these links */}
+        {/* <a href='' onClick={}>
+          {' '}
+          Sign Out
+        </a> */}
       </div>
     </nav>
   );
