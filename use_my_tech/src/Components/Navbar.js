@@ -4,13 +4,14 @@ import { useHistory } from 'react-router-dom';
 
 import '../styles/navbar.css';
 
-function Navbar({ currentUser }) {
+const Navbar = props => {
   const history = useHistory();
 
   const signOutHandler = evt => {
     evt.preventDefault();
     localStorage.clear();
     history.push('/login');
+    props.getProfile();
   };
 
   return (
@@ -25,15 +26,23 @@ function Navbar({ currentUser }) {
         <a href='https://usemytechstuff2.netlify.app/'>Home</a>
         <Link to='/rentals'>Rental</Link>
         {/* if logged in show these links */}
-        <Link to='/login'>Login</Link>
-        <Link to='/register'>Sign Up</Link>
+
         <Link to='/myequipment'>My Equipment</Link>
-        <a href='' onClick={signOutHandler}>
-          Sign Out
-        </a>
+
+        {localStorage.getItem('token') !== null ? (
+          <a href='' onClick={signOutHandler}>
+            Sign Out
+          </a>
+        ) : (
+          <>
+            {' '}
+            <Link to='/login'>Login</Link>
+            <Link to='/register'>Sign Up</Link>{' '}
+          </>
+        )}
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
