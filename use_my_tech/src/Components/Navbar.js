@@ -1,12 +1,17 @@
 import React from 'react';
 import NavLinks from './NavLinks';
 import { Links } from 'react-router-dom';
+import {useHistory} from 'react-router-dom'
 
 import '../styles/navbar.css';
 
 function Navbar() {
+  const history = useHistory();
+
   const signOutHandler = evt => {
     evt.preventDefault();
+    localStorage.clear();
+    history.push('/login');
   };
 
   return (
@@ -22,7 +27,6 @@ function Navbar() {
         {/* Drop Down Menu Once logged in */}
         {/* if logged in show these links */}
         <a href='' onClick={signOutHandler}>
-          {' '}
           Sign Out
         </a>
       </div>
