@@ -17,9 +17,12 @@
   padding-bottom: 30px;
 }
 
-.user-renting-contianer {
-  padding: 50px;
+.main-rented-container {
+  padding-top: 50px;
 }
+/* .user-renting-contianer {
+  padding: 50px;
+} */
 
 .card-holder {
   display: flex;
