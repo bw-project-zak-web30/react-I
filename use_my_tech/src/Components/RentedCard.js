@@ -15,9 +15,9 @@ function RentedCard({ product, remove }) {
       <CardBody>
         <CardTitle>Price: {product.price}</CardTitle>
         <CardText>Details: {product.details}</CardText>
-        <div className='owner-button-container'>
+        {/* <div className='owner-button-container'>
           <Button onClick={() => remove(product.id)}>Return</Button>
-        </div>
+        </div> */}
       </CardBody>
     </Card>
   );
