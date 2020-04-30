@@ -37,18 +37,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 //-------- Equipment Initial Values ---------
+const userId = localStorage.getItem('userId');
+console.log(userId);
 const equipmentInitialValues = {
+  owner_id:parseInt(userId),
   name: '',
-  price: '',
-  rentalTime: '',
+  price: parseInt(''),
+  timeframe: parseInt(''),
   details: '',
 };
 
 function EquipOwner() {
+  const history = useHistory();
   const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
-
-  const history = useHistory();
 
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
@@ -83,6 +85,7 @@ function EquipOwner() {
 
   const handleAddSubmit = ev => {
     ev.preventDefault();
+
     console.log(equipmentValues);
 
     AxiosWithAuth()
@@ -94,6 +97,7 @@ function EquipOwner() {
       .catch(err => {
         console.log('Add Equipment Error', err);
       });
+    console.log(equipmentValues);
   };
 
   const deleteTech = itemID => {
@@ -110,7 +114,7 @@ function EquipOwner() {
 
   const editItem = itemID => {
     setId(itemID);
-    history.pushState('/editForm');
+    history.push('/editForm');
   };
 
   const onCheckboxChange = ev => {
@@ -145,7 +149,7 @@ function EquipOwner() {
             />
             <TextField
               name='price'
-              type='text'
+              type='number'
               value={equipmentValues.price}
               onChange={handleAddChange}
               placeholder='Price'
@@ -154,9 +158,9 @@ function EquipOwner() {
               margin='normal'
             />
             <TextField
-              name='rentalTime'
+              name='timeframe'
               type='number'
-              value={equipmentValues.rentalTime}
+              value={equipmentValues.timeframe}
               onChange={handleAddChange}
               placeholder='Renting Days'
               fullWidth

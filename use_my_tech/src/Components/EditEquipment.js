@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
+import {useHistory} from 'react-router-dom';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -31,26 +32,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function EditEquipment() {
+ const userId = localStorage.getItem('userId');
+
+function EditEquipment(props) {
   //----------MATERIAL UI STYLES ------
   const classes = useStyles();
 
   //-----------------------------------------
-  const userId = localStorage.getItem('userId');
+  const history = useHistory();
   const itemId = localStorage.getItem('itemId');
   //------------State-----------------------------
   const [equipment, setEquipment] = useState({});
   const [equipmentValues, setEquipmentValues] = useState(equipment);
 
   //-----------Backend call------------------
-  AxiosWithAuth()
-    .get(`/api/users/${userId}/equipment/${itemId}`)
+  useEffect(() => {AxiosWithAuth()
+    .get(`/api/equipment/${itemId}`)
     .then(res => {
       console.log('Got the item', res.data);
+      setEquipmentValues(res.data);
     })
     .catch(err => {
       console.log('Did not get item', err);
-    });
+    });},[])
 
   //--------------Handlers--------------------
   const handleEditChange = ev => {
@@ -60,6 +64,20 @@ function EditEquipment() {
     });
   };
 
+  const editSubmit = ev =>{
+    ev.preventDefault();
+
+    AxiosWithAuth().put(`/api/users/${userId}/equipment/${itemId}`, equipmentValues)
+    .then(res =>{
+      console.log(res);
+      props.getEquipList();
+      history.push('/myequipment');
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  }
+
   return (
     <Container>
       <div className={classes.paper}>
@@ -67,7 +85,7 @@ function EditEquipment() {
         <Typography component='h1' variant='h5'>
           Edit Equipment
         </Typography>
-        <form action=''>
+        <form action='' onSubmit={editSubmit}>
           <TextField
             name='name'
             type='text'
@@ -89,9 +107,9 @@ function EditEquipment() {
             margin='normal'
           />
           <TextField
-            name='rentalTime'
+            name='timeframe'
             type='number'
-            value={equipmentValues.rentalTime}
+            value={equipmentValues.timeframe}
             onChange={handleEditChange}
             placeholder='Renting Days'
             fullWidth

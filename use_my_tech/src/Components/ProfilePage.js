@@ -31,40 +31,25 @@ function ProfilePage() {
 
   useEffect(() => {
     updateProfile();
-  });
+  }, [])
 
-  const getRentedItems = () => {
-    AxiosWithAuth()
-      .get(`/api/users/${userId}/rentals`)
-      .then(res => {
-        console.log('I got the items im renting', res.data);
-        setRentals(res.data);
-      })
-      .catch(err => {
-        console.log('Did not get the items i am renting', err);
-      });
-  };
-
-  useEffect(() => {
-    getRentedItems();
-  }, []);
-
-  const deleteProfile = proId => {
-    AxiosWithAuth()
-      .delete(`/api/users/${userId}`)
-      .then(res => {
-        console.log(res);
-        updateProfile();
-        history.push('/login');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
+  const deleteProfile = proId =>{
+    AxiosWithAuth().delete(`/api/users/${userId}`)
+    .then(res =>{
+      console.log(res);
+      updateProfile();
+      history.push('/login');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+const editProfile = proId =>{
+    history.push('/profileEdit');
+  }
   return (
     <div className='profile-container'>
-      <UserCard details={user} remove={deleteProfile} />
+      <UserCard details={user} remove={deleteProfile} edit={editProfile}/>
       <EquipOwner />
       <div className='user-renting-contianer'>
         <h3>Equipments You Are Renting</h3>
