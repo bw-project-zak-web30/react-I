@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import {fetchEquipment} from '../store/actions/EquipActions';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
 
@@ -48,33 +49,18 @@ const equipmentInitialValues = {
   details: '',
 };
 
-function EquipOwner() {
+const EquipOwner = props => {
   const history = useHistory();
-  const userId = localStorage.getItem('userId');
   const [id, setId] = useLocalStorage('itemId');
 
   //----------------STATE-------------------------
-  const [equipments, setEquipments] = useState([]);
-
   const [equipmentValues, setEquipmentValues] = useState(
     equipmentInitialValues
   );
-
   //-------------BACKEND CALL--------------
-  const getEquipList = () => {
-    AxiosWithAuth()
-      .get(`/api/users/${userId}/equipment`)
-      .then(res => {
-        console.log(res);
-        setEquipments(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
 
   useEffect(() => {
-    getEquipList();
+    props.fetchEquipment();
   }, []);
   // --------------HANDLERS-----------------
   const handleAddChange = ev => {
@@ -93,7 +79,7 @@ function EquipOwner() {
       .post(`/api/users/${userId}/equipment`, equipmentValues)
       .then(res => {
         console.log('Added Equipment to backend', res);
-        getEquipList();
+        props.fetchEquipment();
       })
       .catch(err => {
         console.log('Add Equipment Error', err);
@@ -105,7 +91,7 @@ function EquipOwner() {
       .delete(`/api/users/${userId}/equipment/${itemID}`)
       .then(res => {
         console.log(res);
-        getEquipList();
+        props.fetchEquipment();
       })
       .catch(err => {
         console.log(err);
@@ -205,5 +191,12 @@ function EquipOwner() {
     </div>
   );
 }
+const mapStateToProps = state =>{
+  return{
+      equipment:state,
+      error:state.error
+  }
+}
 
-export default EquipOwner;
+export default connect(mapStateToProps,
+  {fetchEquipment})(EquipOwner);
