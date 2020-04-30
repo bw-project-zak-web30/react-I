@@ -8,14 +8,14 @@ import '../styles/profile.css';
 import RentedCard from './RentedCard';
 import Rentend from './Rentend';
 
-function ProfilePage() {
+const ProfilePage = props => {
   const history = useHistory();
   //---------STATE------------------
   const [user, setUser] = useState({});
   const userId =parseInt(localStorage.getItem('userId'));
   const [rentals, setRentals] = useState([]);
   //----------BACKEND CALL---------------
-  const updateProfile = () => {
+  const updateProfile = props => {
     AxiosWithAuth()
       .get(`/api/users/${userId}`)
       .then(res => {
@@ -37,7 +37,7 @@ function ProfilePage() {
     AxiosWithAuth().delete(`/api/users/${userId}`)
     .then(res =>{
       console.log(res);
-      updateProfile();
+      props.getProfile();
       history.push('/login');
     })
     .catch(err => {
