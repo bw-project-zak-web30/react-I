@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -37,6 +37,7 @@ const initialEdit = {
 }
 
 function EditProfile(props) {
+  const {id} = useParams();
   const history = useHistory();
   const userId = localStorage.getItem('userId');
   //----------MATERIAL UI STYLES ------
@@ -55,7 +56,7 @@ function EditProfile(props) {
   };
 
   useEffect(() =>{
-    AxiosWithAuth().get(`/api/users/${userId}`)
+    AxiosWithAuth().get(`/api/users/${id}`)
     .then(res => {
       console.log(res);
       setUsers({
@@ -75,11 +76,11 @@ function EditProfile(props) {
 
     console.log(user);
 
-    AxiosWithAuth().put(`/api/users/${userId}`, user)
+    AxiosWithAuth().put(`/api/users/${id}`, user)
     .then(res =>{
       console.log("New Editted profile: ",res);
       props.getProfileUpdate();
-      history.push('/myequipment');
+      history.push(`/myequipment/${id}`);
     })
     .catch(err =>{
       console.log(err);

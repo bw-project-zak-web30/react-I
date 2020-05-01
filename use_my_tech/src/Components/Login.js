@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import {useLocalStorage} from '../hooks/useLocalStorage';
 
@@ -37,6 +37,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = () => {
+  
+
   const history = useHistory();
   const [userID, setUserID] = useLocalStorage('userId')
   const [loginState, setLoginState] = useState({
@@ -61,7 +63,7 @@ const Login = () => {
         console.log('Login Fetch: ', res);
         setUserID(res.data.userId);
         localStorage.setItem("token", res.data.token);
-        history.push('/myequipment');
+        history.push(`/myequipment/${res.data.userId}`);
       })
       .catch(err => console.log('Login ERROR: ', err));
   };

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
 import '../styles/navbar.css';
 
 const Navbar = props => {
   const history = useHistory();
+  const {id} = useParams();
+  const userId =parseInt(localStorage.getItem('userId'));
 
   const signOutHandler = evt => {
     evt.preventDefault();
@@ -24,9 +26,9 @@ const Navbar = props => {
       </div>
       <div className='nav-links'>
         <a href='https://usemytechstuff2.netlify.app/'>Home</a>
-        <Link to='/rentals'>Rental</Link>
+        <Link to={`/rentals/${userId}`}>Rental</Link>
         {/* if logged in show these links */}
-        <Link to='/myequipment'>My Equipment</Link>
+        <Link to={`/myequipment/${userId}`}>My Equipment</Link>
 
       {localStorage.getItem('token') !== null ?  <a href='' onClick={signOutHandler}>
           Sign Out
