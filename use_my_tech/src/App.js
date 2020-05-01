@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Navbar from './Components/Navbar';
@@ -32,16 +32,17 @@ function App() {
       });
   };
 
-  const getProfile = () =>{
-    AxiosWithAuth().get(`/api/users/${userId}`)
-    .then(res => {
-      console.log(res);
-      setUser(res.data);
-    })
-    .catch(err =>{
-      console.log(err);
-    })
-  }
+  const getProfile = () => {
+    AxiosWithAuth()
+      .get(`/api/users/${userId}`)
+      .then(res => {
+        console.log(res);
+        setUser(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <Router>
