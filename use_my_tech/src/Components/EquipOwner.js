@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
@@ -30,8 +30,10 @@ const equipmentInitialValues = {
 };
 
 const EquipOwner = props => {
+  const {id} = useParams();
+  console.log("useParams id",id);
   const history = useHistory();
-  const [id, setId] = useLocalStorage('itemId');
+  const [itemId, setItemId] = useLocalStorage('itemId');
 
   //----------------STATE-------------------------
   const [equipments, setEquipments] = useState([]);
@@ -43,7 +45,7 @@ const EquipOwner = props => {
   //-------------BACKEND CALL--------------
   const getEquipList = () => {
     AxiosWithAuth()
-      .get(`/api/users/${userId}/equipment`)
+      .get(`/api/users/${id}/equipment`)
       .then(res => {
         console.log(res);
         setEquipments(res.data);
@@ -58,9 +60,9 @@ const EquipOwner = props => {
   }, []);
   // --------------HANDLERS-----------------
 
-  const deleteTech = itemID => {
+  const deleteTech = equipId => {
     AxiosWithAuth()
-      .delete(`/api/users/${userId}/equipment/${itemID}`)
+      .delete(`/api/users/${id}/equipment/${equipId}`)
       .then(res => {
         console.log(res);
         getEquipList();
@@ -70,9 +72,9 @@ const EquipOwner = props => {
       });
   };
 
-  const editItem = itemID => {
-    setId(itemID);
-    history.push('/editForm');
+  const editItem = equipId => {
+    setItemId(equipId);
+    history.push(`/editForm/user/${id}/item/${equipId}`);
   };
 
   const onCheckboxChange = ev => {

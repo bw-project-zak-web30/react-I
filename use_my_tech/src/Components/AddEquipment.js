@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import EquipmentOwnerCard from './EquipmentOwnerCard';
@@ -47,6 +47,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
   const AddEquipment = props =>{
+    const {id} = useParams();
     const [equipmentValues, setEquipmentValues] = useState(
         equipmentInitialValues
       );
@@ -64,7 +65,7 @@ const useStyles = makeStyles(theme => ({
         console.log(equipmentValues);
     
         AxiosWithAuth()
-          .post(`/api/users/${userId}/equipment`, equipmentValues)
+          .post(`/api/users/${id}/equipment`, equipmentValues)
           .then(res => {
             console.log('Added Equipment to backend', res);
             props.getEquipList();

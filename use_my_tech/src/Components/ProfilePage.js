@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import UserCard from './UserCard';
 import EquipOwner from './EquipOwner';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import '../styles/profile.css';
 import RentedCard from './RentedCard';
 import Rentend from './Rentend';
 
 const ProfilePage = props => {
+  const {id} = useParams();
   const history = useHistory();
   //---------STATE------------------
   const [user, setUser] = useState({});
@@ -17,7 +18,7 @@ const ProfilePage = props => {
   //----------BACKEND CALL---------------
   const updateProfile = props => {
     AxiosWithAuth()
-      .get(`/api/users/${userId}`)
+      .get(`/api/users/${id}`)
       .then(res => {
         console.log(res);
         setUser(res.data);
@@ -32,9 +33,9 @@ const ProfilePage = props => {
   }, []);
 
   const deleteProfile = proId =>{
-    console.log("The UserID:",userId);
+    console.log("The UserID:",id);
 
-    AxiosWithAuth().delete(`/api/users/${userId}`)
+    AxiosWithAuth().delete(`/api/users/${id}`)
     .then(res =>{
       console.log(res);
       props.getProfile();
@@ -45,7 +46,7 @@ const ProfilePage = props => {
     })
   }
 const editProfile = proId =>{
-    history.push('/profileEdit');
+    history.push(`/profileEdit/${id}`);
   };
   return (
     <div className='profile-container'>

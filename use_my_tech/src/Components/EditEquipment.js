@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 //-------MATERIAL UI IMPORTS---------
 import Button from '@material-ui/core/Button';
@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
  const userId = localStorage.getItem('userId');
 
 function EditEquipment(props) {
+  const {id} = useParams();
+  console.log("params ID:",id);
+
   //----------MATERIAL UI STYLES ------
   const classes = useStyles();
 
@@ -47,7 +50,7 @@ function EditEquipment(props) {
 
   //-----------Backend call------------------
   useEffect(() => {AxiosWithAuth()
-    .get(`/api/equipment/${itemId}`)
+    .get(`/api/equipment/${id}`)
     .then(res => {
       console.log('Got the item', res.data);
       setEquipmentValues(res.data);
@@ -67,11 +70,11 @@ function EditEquipment(props) {
   const editSubmit = ev =>{
     ev.preventDefault();
 
-    AxiosWithAuth().put(`/api/users/${userId}/equipment/${itemId}`, equipmentValues)
+    AxiosWithAuth().put(`/api/users/${userId}/equipment/${id}`, equipmentValues)
     .then(res =>{
       console.log(res);
       props.getEquipList();
-      history.push('/myequipment');
+      history.push(`/myequipment/${userId}`);
     })
     .catch(err =>{
       console.log(err);

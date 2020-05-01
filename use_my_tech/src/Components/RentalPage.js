@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import RentalCard from './RentalCard';
 import AxiosWithAuth from '../Utils/AxiosWithAuth';
 import Search from './Search';
+import {useParams} from 'react-router-dom';
 
 //------REACTSTRAP---------------
 import { Spinner } from 'reactstrap';
 
 function RentalPage() {
   const userId = localStorage.getItem('userId');
+  const {id}= useParams();
 
   const today = new Date().toISOString();
 
@@ -29,7 +31,7 @@ function RentalPage() {
     return_date: '',
     start_date: today.slice(0, 10),
     details: rentals.details,
-    renter_id: parseInt(userId),
+    renter_id: parseInt(id),
     owner_id: rentals.owner_id,
     equipment_id: rentals.id,
   });
@@ -61,7 +63,7 @@ function RentalPage() {
       owner_id: item.owner_id,
       equipment_id: item.id,
     });
-
+    console.log("RentNow button, ", itemRent);
 
     AxiosWithAuth().post(`/api/equipment`, itemRent)
     .then(res =>{

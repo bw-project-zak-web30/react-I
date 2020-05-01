@@ -50,19 +50,20 @@ function App() {
         <Navbar user={user} getProfile={getProfile}/>
         <Switch>
           {/* <PrivateRoute exact path='/' component={Home} /> */}
-          <PrivateRoute exact path='/rentals' component={RentalPage} />
+          <PrivateRoute exact path='/rentals/:id' component={RentalPage} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={SignUp} />
           {/* <Route exact path='/myequipment' component={EquipOwner} /> */}
-          <PrivateRoute exact path='/myequipment' component={ProfilePage} />
-
-          <PrivateRoute exact path='/editForm'>
-            <EditEquipment getEquipList={getEquipList} />
+          <PrivateRoute path='/myequipment/:id' component={ProfilePage} />
+          
+          <PrivateRoute path='/editForm/user/:id/item/:id'>
+            <EditEquipment getEquipList={getEquipList}/>
           </PrivateRoute>
 
-          <PrivateRoute exact path='/profileEdit'>
-            <EditProfile getProfileUpdate={getProfile} />
+          <PrivateRoute path='/profileEdit/:id' >
+            <EditProfile getProfileUpdate={getProfile}/>
           </PrivateRoute>
+          <PrivateRoute exact path="/" />
         </Switch>
         <Footer />
       </div>
